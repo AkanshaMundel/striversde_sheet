@@ -1,0 +1,107 @@
+Set Matrix Zeros
+#include <bits/stdc++.h> 
+void setZeros(vector<vector<int>> &matrix)
+{
+	// Write your code here.
+     int col0 = 1, row = matrix.size(), col = matrix[0].size();
+  for (int i = 0; i < row; i++) {
+    //checking if 0 is present in the 0th column or not
+    if (matrix[i][0] == 0) col0 = 0;
+    for (int j = 1; j < col; j++) {
+      if (matrix[i][j] == 0) {
+        matrix[i][0] = 0;
+        matrix[0][j] = 0;
+      }
+    }
+  }
+  //traversing in the reverse direction and
+  //checking if the row or col has 0 or not
+  //and setting values of matrix accordingly.
+  for (int i = row - 1; i >= 0; i--) {
+    for (int j = col - 1; j >= 1; j--) {
+      if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+        matrix[i][j] = 0;
+      }
+    }
+    if (col0 == 0) {
+      matrix[i][0] = 0;
+    }
+
+  }
+}
+or
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        bool row = false, col = false;
+        for(int i = 0; i < matrix.size(); i++){
+            for(int j = 0; j < matrix[0].size(); j++){
+                if(matrix[i][j] == 0) {
+                    if(i == 0) row = true;
+                    if(j == 0) col = true;
+                    matrix[0][j] = matrix[i][0] = 0;
+                }
+            }
+        }
+        for(int i = 1; i < matrix.size(); i++){
+            for(int j = 1; j < matrix[0].size(); j++){
+                if(matrix[i][0] == 0 || matrix[0][j] == 0) matrix[i][j] = 0;
+            }
+        }
+        if(col){
+            for(int i = 0; i < matrix.size(); i++) matrix[i][0] = 0;
+        }
+        if(row){
+            for(int j = 0; j < matrix[0].size(); j++) matrix[0][j] = 0;
+        }
+    }
+};
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+2 Pascal's Triangle
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> r(numRows);
+        for(int i = 0;i< numRows;i++){
+            r[i].resize(i+1);
+            r[i][0] = r[i][i] = 1;
+            for(int j =1;j<i;j++){
+                r[i][j]= r[i-1][j-1] +r[i-1][j];
+            }
+        }
+        return r;
+    }
+};
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+3 Next Permutation 
+int n = nums.size();
+        int i,l;
+        for(i = n-2; i>=0 ; i--){
+            if(nums[i]<nums[i+1]){
+                
+                break;}
+        }
+        if(i<0) {
+            reverse(nums.begin(),nums.end());
+        }else{
+           for( l = n-1; l>i;l--){ // l=2>1
+               if(nums[l]>nums[i]){  //3>2
+                  
+                   break;
+               }
+           } 
+            swap(nums[i],nums[l]);
+            
+            reverse(nums.begin()+i+1,nums.end());
+        }
+        
+        
+        ----------------------------------------------------------------------------------------------------------------------------------------------
+        
+        
